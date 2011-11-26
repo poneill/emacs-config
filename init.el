@@ -1,7 +1,7 @@
 (setq inhibit-splash-screen t)
 (line-number-mode 1)
 (column-number-mode 1)
-
+(scroll-bar-mode -1)
 (tool-bar-mode -1) ; no tool bar with icons
 
 (ido-mode t)
