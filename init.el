@@ -2,8 +2,8 @@
 (line-number-mode 1)
 (column-number-mode 1)
 (scroll-bar-mode -1)
-(tool-bar-mode -1) ; no tool bar with icons
-
+(tool-bar-mode -1) 
+(setq x-select-enable-clipboard t); why was this ever, ever disabled?
 (ido-mode t)
 (defun pdf-with-okular ()
 (add-to-list 'TeX-output-view-style
