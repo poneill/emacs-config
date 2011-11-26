@@ -1,0 +1,29 @@
+* emacs-config
+
+** Motivation
+The repository =emacs-config= is my attempt to impose some order on my
+sprawling .emacs file.  In the course of working with emacs, I noticed
+several complementary problems:
+
+- Versioning :: Small changes to the emacs ecology can sometimes be
+                difficult (for me) to predict, and their consequences
+                difficult to mend.  
+- Synching :: I work on four or five different machines, and the four
+              or five separate .emacses have begun to drift
+              appreciably.
+- Embarrassing code creep :: My approach to the .emacs file is
+                essentially cargo-cultish.  I can probably count on
+                one hand the number of times that I've solved problems
+                by sitting down and composing elisp.  Instead, I
+                typically find 5 lines of someone else's .emacs that
+                does the job, paste them in, and hope that the
+                resulting frankensource does what I want.  It is at
+                least plausible that exposing my shameful init files
+                to the world might encourage me to clean them up.
+              
+** Setup
+   (Adapted from github.com/dimitri).
+: cd ~
+: git clone http://github.com/poneill/emacs-config emacs-config
+: mkdir -p ~/.emacs.d
+: ( cd ~/.emacs.d && ln -s emacs-config/init.el . )
