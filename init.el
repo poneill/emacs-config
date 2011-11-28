@@ -1,4 +1,4 @@
-(setq inhibit-splash-screen t)
+(set-default-font "monospace 10")
 (line-number-mode 1)
 (column-number-mode 1)
 (scroll-bar-mode -1)
@@ -115,3 +115,6 @@
             (ansi-term term-cmd))
         (ansi-term term-cmd)))))
 (global-set-key (kbd "<f2>") 'visit-ansi-term)
+
+(add-hook 'text-mode-hook 'turn-on-flyspell)
+(global-set-key [C-backspace] 'flyspell-auto-correct-previous-word)
