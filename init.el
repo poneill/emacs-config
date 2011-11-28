@@ -6,7 +6,6 @@
 (tool-bar-mode -1) 
 (setq x-select-enable-clipboard t); why was this ever, ever disabled?
 (ido-mode t)
-(require 'versions)
 (defun pdf-with-okular ()
 (add-to-list 'TeX-output-view-style
 (quote ("^pdf$" "." "okular %o %(outpage)"))))
