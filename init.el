@@ -1,3 +1,4 @@
+(add-to-list 'load-path "~/emacs-config/")
 (set-default-font "monospace 10")
 (line-number-mode 1)
 (column-number-mode 1)
@@ -5,16 +6,25 @@
 (tool-bar-mode -1) 
 (setq x-select-enable-clipboard t); why was this ever, ever disabled?
 (ido-mode t)
+(require 'versions)
 (defun pdf-with-okular ()
 (add-to-list 'TeX-output-view-style
 (quote ("^pdf$" "." "okular %o %(outpage)"))))
 
 (add-hook 'LaTeX-mode-hook 'pdf-with-okular t)
-
 ;;; bind RET to py-newline-and-indent
 (add-hook 'python-mode-hook '(lambda () 
      (define-key python-mode-map "\C-m" 'newline-and-indent)))
 
+(version< (emacs-version) (emacs-version))
+(version-to-list (version))
+(if (boundp 'python-remove-cwd-from-path)
+    (setq python-remove-cwd-from-path nil)
+  (progn 
+    (defun python-reinstate-current-directory ()
+      (python-send-string "sys.path[0:0] = ['']"))
+    (add-hook 'inferior-python-mode-hook 'python-reinstate-current-directory)))
+    
 (add-hook 'python-mode-hook
      (lambda ()
       (define-key python-mode-map "\"" 'electric-pair)
