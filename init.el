@@ -15,8 +15,6 @@
 (add-hook 'python-mode-hook '(lambda () 
      (define-key python-mode-map "\C-m" 'newline-and-indent)))
 
-(version< (emacs-version) (emacs-version))
-(version-to-list (version))
 (if (boundp 'python-remove-cwd-from-path)
     (setq python-remove-cwd-from-path nil)
   (progn 
