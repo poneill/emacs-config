@@ -1,4 +1,5 @@
 (add-to-list 'load-path "~/emacs-config/")
+(setq inhibit-splash-screen t)
 (set-default-font "monospace 10")
 (line-number-mode 1)
 (column-number-mode 1)
