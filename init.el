@@ -126,3 +126,7 @@
 
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 (global-set-key [C-backspace] 'flyspell-auto-correct-previous-word)
+
+(autoload 'frink-mode "frink-mode")
+(setq auto-mode-alist       
+      (cons '("\\.frink\\'" . frink-mode) auto-mode-alist))
