@@ -129,3 +129,32 @@
 
 (add-hook 'text-mode-hook 'turn-on-flyspell)
 (global-set-key [C-backspace] 'flyspell-auto-correct-previous-word)
+
+; define latex delimiters for org-mode
+(fset 'org-latex-left-paren
+      (lambda (&optional arg) 
+	"Keyboard macro." 
+	(interactive "p") 
+	(kmacro-exec-ring-item 
+	 (quote ("\\(" 0 "%d")) arg)))
+
+(fset 'org-latex-right-paren
+      (lambda (&optional arg) 
+	"Keyboard macro." 
+	(interactive "p") 
+	(kmacro-exec-ring-item 
+	 (quote ("\\)" 0 "%d")) arg)))
+
+(add-hook 'org-mode-hook 
+	  '(lambda () 
+	     (define-key org-mode-map 
+	       [(control \()] 
+	     'org-latex-left-paren)))
+
+(add-hook 'org-mode-hook 
+	  '(lambda () 
+	     (define-key org-mode-map 
+	       [(control \))] 
+	     'org-latex-right-paren)))
+(add-hook 'org-mode-hook '(lambda () 
+     (define-key org-mode-map "\C-)" 'org-latex-right-paren)))
