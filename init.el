@@ -7,6 +7,9 @@
 (tool-bar-mode -1) 
 (setq x-select-enable-clipboard t); why was this ever, ever disabled?
 (ido-mode t)
+(require 'inf-haskell)
+(custom-set-variables
+ '(haskell-program-name "ghci"))
 (defun pdf-with-okular ()
 (add-to-list 'TeX-output-view-style
 (quote ("^pdf$" "." "okular %o %(outpage)"))))
@@ -130,3 +133,39 @@
 (autoload 'frink-mode "frink-mode")
 (setq auto-mode-alist       
       (cons '("\\.frink\\'" . frink-mode) auto-mode-alist))
+
+; define latex delimiters for org-mode
+(fset 'org-latex-left-paren
+      (lambda (&optional arg) 
+	"Keyboard macro." 
+	(interactive "p") 
+	(kmacro-exec-ring-item 
+	 (quote ("\\(" 0 "%d")) arg)))
+
+(fset 'org-latex-right-paren
+      (lambda (&optional arg) 
+	"Keyboard macro." 
+	(interactive "p") 
+	(kmacro-exec-ring-item 
+	 (quote ("\\)" 0 "%d")) arg)))
+
+(add-hook 'org-mode-hook 
+	  '(lambda () 
+	     (define-key org-mode-map 
+	       [(control \()] 
+	     'org-latex-left-paren)))
+
+(add-hook 'org-mode-hook 
+	  '(lambda () 
+	     (define-key org-mode-map 
+	       [(control \))] 
+	     'org-latex-right-paren)))
+
+;Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+ '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+ '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+
