@@ -10,11 +10,10 @@
 (require 'inf-haskell)
 (custom-set-variables
  '(haskell-program-name "ghci"))
-(defun pdf-with-okular ()
-(add-to-list 'TeX-output-view-style
-(quote ("^pdf$" "." "okular %o %(outpage)"))))
 
-(add-hook 'LaTeX-mode-hook 'pdf-with-okular t)
+(setq Tex-PDF-mode t)
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
 ;;; bind RET to py-newline-and-indent
 (add-hook 'python-mode-hook '(lambda () 
      (define-key python-mode-map "\C-m" 'newline-and-indent)))
