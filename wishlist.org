@@ -1,0 +1,9 @@
+#+TITLE: wishlist
+
+  This file contains rainy-day ideas for emacs configuration.
+
+* DONE Fold latex/pdf workflow into emacs
+* TODO AucTex bindings within $$ in org-mode
+* TODO rebind export org to latex-pdf
+* TODO latex-pdf export opens corresponding pdf buffer. w/ vertical split
+
