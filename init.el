@@ -96,6 +96,13 @@
 (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
 (global-set-key (kbd "C-x a r") 'align-regexp)
+;; automatically add trace boilerplate when executed with point at
+;; beginning of first line of function definition.  Note: does not
+;; work with functions written in point-free style (how could it?).
+;; All function arguments must be specified.
+(fset 'haskell-trace-function
+   [?\C-  ?\C-s ?= ?\M-w ?\C-a return ?\C-p ?\C-y backspace backspace ?\C-a ?\C-k ?\C-y ?  ?| ?  ?t ?r ?a ?c ?e ?  ?\( ?\C-y ?\C-x ?\C-x ?\" ?\M-f ?\" ?\C-  ?\C-e ?\M-% ?  return ?+ ?+ ?  ?\" ?  ?\" ?\S-  ?+ ?\S-  ?+ backspace backspace ?+ ?  ?s ?h ?o ?w ?  return ?! ?\M-f ?\) ?  ?F ?a ?l ?s ?e ?  ?= ?  ?u ?n ?d ?e ?f ?i ?n ?e ?d])
+(define-key haskell-mode-map (kbd "C-c t") 'haskell-trace-function)
 
 (require 'term)
 (defun visit-ansi-term ()
