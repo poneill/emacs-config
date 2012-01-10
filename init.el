@@ -104,6 +104,21 @@
    [?\C-  ?\C-s ?= ?\M-w ?\C-a return ?\C-p ?\C-y backspace backspace ?\C-a ?\C-k ?\C-y ?  ?| ?  ?t ?r ?a ?c ?e ?  ?\( ?\C-y ?\C-x ?\C-x ?\" ?\M-f ?\" ?\C-  ?\C-e ?\M-% ?  return ?+ ?+ ?  ?\" ?  ?\" ?\S-  ?+ ?\S-  ?+ backspace backspace ?+ ?  ?s ?h ?o ?w ?  return ?! ?\M-f ?\) ?  ?F ?a ?l ?s ?e ?  ?= ?  ?u ?n ?d ?e ?f ?i ?n ?e ?d])
 (define-key haskell-mode-map (kbd "C-c t") 'haskell-trace-function)
 
+(load-library "haskell-site-file")
+;; Literate Haskell [requires MMM] courtesy David Bremner
+(require 'mmm-auto)
+(require 'mmm-haskell)
+(setq mmm-global-mode 'maybe)
+(add-to-list 'mmm-mode-ext-classes-alist
+   '(latex-mode "\\.lhs$" haskell))
+
+(add-to-list 'auto-mode-alist '("\\.lhs\\'" . latex-mode))
+(eval-after-load "tex"
+'(progn
+    (add-to-list 'LaTeX-command-style '("lhs" "lhslatex"))
+    (add-to-list 'TeX-file-extensions "lhs")))
+
+
 (require 'term)
 (defun visit-ansi-term ()
   "If the current buffer is:
