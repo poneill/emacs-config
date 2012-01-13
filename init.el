@@ -15,7 +15,8 @@
   ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(haskell-program-name "ghci"))
+ '(haskell-program-name "ghci")
+ '(weblogger-config-alist (quote (("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
 (setq Tex-PDF-mode t)
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -200,3 +201,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(mmm-default-submode-face ((t (:background "gray25")))))
+(require 'weblogger)
+(require 'xml-rpc)
+
+
