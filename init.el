@@ -118,6 +118,8 @@
 (setq mmm-global-mode 'maybe)
 (add-to-list 'mmm-mode-ext-classes-alist
    '(latex-mode "\\.lhs$" haskell))
+(setenv "PATH" (concat (getenv "PATH") 
+		      ":~/.cabal/bin"))
 
 (add-to-list 'auto-mode-alist '("\\.lhs\\'" . latex-mode))
 (eval-after-load "tex"
@@ -203,5 +205,3 @@
  '(mmm-default-submode-face ((t (:background "gray25")))))
 (require 'weblogger)
 (require 'xml-rpc)
-
-
