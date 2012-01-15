@@ -120,7 +120,10 @@
    '(latex-mode "\\.lhs$" haskell))
 (setenv "PATH" (concat (getenv "PATH") 
 		      ":~/.cabal/bin"))
-
+;; allow ghci to read expressions of greater than 253 chars in length!
+(add-hook 'haskell-mode-hook
+       '(lambda ()
+          (setq process-connection-type nil))) 
 (add-to-list 'auto-mode-alist '("\\.lhs\\'" . latex-mode))
 (eval-after-load "tex"
 '(progn
