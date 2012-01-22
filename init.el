@@ -208,3 +208,11 @@
  '(mmm-default-submode-face ((t (:background "gray25")))))
 (require 'weblogger)
 (require 'xml-rpc)
+
+(fset 'haskell-copy-list-to-r
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([201326624 134217847 24 111 25 backspace 41 1 4 99 40 1 95 1] 0 "%d")) arg)))
+
+(defun my-haskell-mode-hook ()
+ (local-set-key "\C-c<" 'haskell-copy-list-to-r))
+
+(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
