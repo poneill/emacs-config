@@ -97,10 +97,10 @@
 
 (load "~/emacs-config/hs-lint")
 (require 'hs-lint)
-(defun my-haskell-mode-hook ()
+(defun haskell-mode-lint-hook ()
  (local-set-key "\C-cl" 'hs-lint))
 
-(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+(add-hook 'haskell-mode-hook 'haskell-mode-lint-hook)
 
 (global-set-key (kbd "C-x a r") 'align-regexp)
 ;; automatically add trace boilerplate when executed with point at
@@ -215,4 +215,6 @@
 (defun my-haskell-mode-hook ()
  (local-set-key "\C-c<" 'haskell-copy-list-to-r))
 
-(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+(add-hook 
+ 'haskell-mode-hook 
+ '(lambda () (define-key haskell-mode-map "\C-c<" 'haskell-copy-list-to-r)))
