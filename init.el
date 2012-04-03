@@ -219,3 +219,6 @@
 (add-hook 
  'haskell-mode-hook 
  '(lambda () (define-key haskell-mode-map "\C-c<" 'haskell-copy-list-to-r)))
+
+(require 'geiser-install)
+
