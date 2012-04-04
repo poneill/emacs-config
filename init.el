@@ -220,5 +220,9 @@
  'haskell-mode-hook 
  '(lambda () (define-key haskell-mode-map "\C-c<" 'haskell-copy-list-to-r)))
 
+(load-file "~/emacs-config/geiser/geiser.el")
+(load-file "~/emacs-config/geiser/geiser-install.el.in")
 (require 'geiser-install)
 
+
+;(add-to-list 'load-path "~/emacs-config/geiser")
