@@ -224,5 +224,7 @@
 (load-file "~/emacs-config/geiser/geiser-install.el.in")
 (require 'geiser-install)
 
+(load-file "~/emacs-config/autopair.el")
+(require 'autopair)
 
 ;(add-to-list 'load-path "~/emacs-config/geiser")
