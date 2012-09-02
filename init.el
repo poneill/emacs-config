@@ -17,6 +17,9 @@
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(dired-listing-switches "-alh")
  '(haskell-program-name "ghci")
+ '(mediawiki-debug t)
+ '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
+ '(mediawiki-site-default "erill-lab")
  '(weblogger-config-alist (quote (("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
 (setq Tex-PDF-mode t)
@@ -227,4 +230,28 @@
 (load-file "~/emacs-config/autopair.el")
 (require 'autopair)
 
-;(add-to-list 'load-path "~/emacs-config/geiser")
+(load-file "~/emacs-config/autopair-latex.el")
+(require 'autopair-latex)
+
+(add-to-list 'load-path "~/emacs-config/geiser")
+
+
+(put 'narrow-to-region 'disabled nil)
+;;scope of following macro should be narrowed to python mode
+;; (fset 'execute-line
+;;    [?\M-m ?\C-  ?\C-e ?\M-w ?\C-x ?o ?\C-y return ?\C-x ?o ?\C-n])
+;; (global-set-key (kbd "C-c <return>") 'execute-line)
+
+(defun my-run-python (&optional new)
+  (interactive "P")
+  (if new
+   (run-python nil nil new)
+   (pop-to-buffer (process-buffer (python-proc)) t)))
+
+(add-hook
+ 'python-mode-hook
+ '(lambda () (define-key python-mode-map (kbd "C-c C-z") 'my-run-python)))
+
+(fset 'python-convert-lambda-to-def
+   [?\C-a ?d ?e ?f ?  ?\C-s ?l ?a ?m ?b ?d ?a ?\C-m M-backspace backspace backspace backspace ?\C-d ?\( ?\C-d ?\C-s ?: ?\C-m backspace ?\) ?: return ?r ?e ?t ?u ?r ?n ?  ?\C-e])
+(require 'clojure-mode)
