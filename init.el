@@ -66,6 +66,15 @@
       (define-key lisp-mode-map "{" 'electric-pair)
      ))
 
+(add-hook 'latex-mode-hook;lowercase!
+     (lambda ()
+      (define-key LaTeX-mode-map "\"" 'electric-pair);mixed-case! FFFFUUUUUUU
+      (define-key LaTeX-mode-map "\'" 'electric-pair)
+      (define-key LaTeX-mode-map "(" 'electric-pair)
+      (define-key LaTeX-mode-map "[" 'electric-pair)
+      (define-key LaTeX-mode-map "{" 'electric-pair)
+     ))
+
 (fset 'insert-docstring
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([34 34 34 return return 16 tab] 0 "%d")) arg)))
 
@@ -87,6 +96,29 @@
 (global-set-key (kbd "C-$") 'insert-dollar-signs)
 (show-paren-mode t)
 (setq ess-eval-visibly-p nil)
+
+(defun ltx-environment (start end)
+  "Insert LaTeX environment."
+;  (interactive "r\nsEnvironment type: ")
+  (save-excursion
+    (if (region-active-p)
+	(progn
+	  (goto-char end)
+	  (insert "$")
+	  (goto-char start)
+	  (insert "$"))
+      (insert "$")
+      (insert "$"))))
+
+(defun foo (start)
+  "Insert LaTeX environment."
+  (interactive)
+    (if (region-active-p) 
+	(progn
+	  (goto-char start)
+	  (insert "$"))
+      (insert "$$")))
+
 
 (setq dna-do-setup-on-load t)
 (load "~/emacs-config/dna-mode")
@@ -220,3 +252,10 @@
  '(lambda () (define-key haskell-mode-map "\C-c<" 'haskell-copy-list-to-r)))
 
 (require 'geiser-install)
+(load "~/emacs-config/autopair")
+(require 'autopair)
+
+(add-hook 'LaTeX-mode-hook
+          #'(lambda ()
+              (modify-syntax-entry ?$ "\"")))
+(put 'narrow-to-region 'disabled nil)
