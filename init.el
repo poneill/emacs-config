@@ -20,7 +20,8 @@
  '(mediawiki-debug t)
  '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
  '(mediawiki-site-default "erill-lab")
- '(weblogger-config-alist (quote (("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
+ '(python-python-command "python")
+ '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
 (setq Tex-PDF-mode t)
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -257,3 +258,21 @@
 (require 'clojure-mode)
 
 (require 'mediawiki)
+(require 'xpp)
+
+(add-to-list 'load-path "~/ESS/lisp")
+(load "~/ESS/lisp/ess-site")
+(setq inferior-julia-program-name "~/julia/julia")
+;(require 'ipython)
+
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+;;; gchat in emacs: solving a problem you never knew you had!
+(setq jabber-account-list
+    '(("pon2@umbc.edu" 
+       (:network-server . "talk.google.com")
+       (:connection-type . ssl))))
