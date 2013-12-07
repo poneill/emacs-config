@@ -15,10 +15,8 @@
   ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(dired-listing-switches "-alh")
  '(haskell-program-name "ghci")
- '(mediawiki-debug t)
- '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
+ '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" ""))))
  '(mediawiki-site-default "erill-lab")
  '(weblogger-config-alist (quote (("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
@@ -77,6 +75,15 @@
       (define-key LaTeX-mode-map "(" 'electric-pair)
       (define-key LaTeX-mode-map "[" 'electric-pair)
       (define-key LaTeX-mode-map "{" 'electric-pair)
+     ))
+
+(add-hook 'c-mode-hook
+     (lambda ()
+      (define-key c-mode-map "\"" 'electric-pair)
+      (define-key c-mode-map "\'" 'electric-pair)
+      (define-key c-mode-map "(" 'electric-pair)
+      (define-key c-mode-map "[" 'electric-pair)
+      (define-key c-mode-map "{" 'electric-pair)
      ))
 
 (fset 'insert-docstring
@@ -291,7 +298,25 @@
 
 (fset 'python-convert-lambda-to-def
    [?\C-a ?d ?e ?f ?  ?\C-s ?l ?a ?m ?b ?d ?a ?\C-m M-backspace backspace backspace backspace ?\C-d ?\( ?\C-d ?\C-s ?: ?\C-m backspace ?\) ?: return ?r ?e ?t ?u ?r ?n ?  ?\C-e])
+
 (require 'clojure-mode)
+(add-hook 'nrepl-interaction-mode-hook
+  'nrepl-turn-on-eldoc-mode)
+(setq nrepl-hide-special-buffers t)
+(defun my-nrepl-jack-in ()
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (when (string-prefix-p "*nrepl" (buffer-name buffer))
+      (kill-buffer buffer)))
+  (nrepl-jack-in nil))
 
 (require 'mediawiki)
 
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(autoload 'xpp-mode "xpp" "Enter XPP mode." t)
+(setq auto-mode-alist (cons '("\\.ode\\'" . xpp-mode) auto-mode-alist))
+(require 'markdown-mode)
