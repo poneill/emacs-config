@@ -18,7 +18,8 @@
  '(haskell-program-name "ghci")
  '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" ""))))
  '(mediawiki-site-default "erill-lab")
- '(weblogger-config-alist (quote (("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
+ '(python-python-command "python")
+ '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
 (setq Tex-PDF-mode t)
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -311,7 +312,7 @@
   (nrepl-jack-in nil))
 
 (require 'mediawiki)
-
+(require 'xpp)
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -320,3 +321,35 @@
 (autoload 'xpp-mode "xpp" "Enter XPP mode." t)
 (setq auto-mode-alist (cons '("\\.ode\\'" . xpp-mode) auto-mode-alist))
 (require 'markdown-mode)
+
+(add-to-list 'load-path "~/ESS/lisp")
+(load "~/ESS/lisp/ess-site")
+(setq inferior-julia-program-name "~/julia/julia")
+;(require 'ipython)
+
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+;;; gchat in emacs: solving a problem you never knew you had!
+(setq jabber-account-list
+    '(("pon2@umbc.edu" 
+       (:network-server . "talk.google.com")
+       (:connection-type . ssl))))
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(jabber-auto-reconnect t)
+ '(jabber-avatar-verbose nil)
+ '(jabber-vcard-avatars-retrieve nil)
+ '(jabber-chat-buffer-format "*-jabber-%n-*")
+ '(jabber-history-enabled t)
+ '(jabber-mode-line-mode t)
+ '(jabber-roster-buffer "*-jabber-*")
+ '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
+ '(jabber-show-offline-contacts nil))
