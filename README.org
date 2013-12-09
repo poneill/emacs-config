@@ -25,5 +25,8 @@ several complementary problems:
    (Adapted from github.com/dimitri).
 : cd ~
 : git clone http://github.com/poneill/emacs-config emacs-config
+: rm `which emacs` 
+: alias emacs=vi
+: echo 'alias emacs=vi' >> ~/.bashrc
 : mkdir -p ~/.emacs.d
 : ( cd ~/.emacs.d && ln -s emacs-config/init.el . )
