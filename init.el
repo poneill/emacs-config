@@ -17,8 +17,18 @@
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(dired-listing-switches "-alh")
  '(haskell-program-name "ghci")
+ '(jabber-auto-reconnect t)
+ '(jabber-avatar-verbose nil)
+ '(jabber-chat-buffer-format "*-jabber-%n-*")
+ '(jabber-history-enabled t)
+ '(jabber-mode-line-compact nil)
+ '(jabber-mode-line-mode nil)
+ '(jabber-roster-buffer "*-jabber-*")
+ '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
+ '(jabber-show-offline-contacts nil)
+ '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
- '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
+ '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "password" "Main Page"))))
  '(mediawiki-site-default "erill-lab")
  '(python-python-command "python")
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
@@ -314,17 +324,4 @@
        (:network-server . "talk.google.com")
        (:connection-type . ssl))))
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(jabber-auto-reconnect t)
- '(jabber-avatar-verbose nil)
- '(jabber-vcard-avatars-retrieve nil)
- '(jabber-chat-buffer-format "*-jabber-%n-*")
- '(jabber-history-enabled t)
- '(jabber-mode-line-mode t)
- '(jabber-roster-buffer "*-jabber-*")
- '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
- '(jabber-show-offline-contacts nil))
+(require 'org-beamer)
