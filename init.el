@@ -15,7 +15,6 @@
   ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(dired-listing-switches "-alh")
  '(haskell-program-name "ghci")
  '(jabber-auto-reconnect t)
  '(jabber-avatar-verbose nil)
@@ -28,7 +27,6 @@
  '(jabber-show-offline-contacts nil)
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
- '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
  '(mediawiki-site-default "erill-lab")
  '(python-python-command "python")
  '(scroll-step 1)
@@ -89,6 +87,15 @@
       (define-key LaTeX-mode-map "(" 'electric-pair)
       (define-key LaTeX-mode-map "[" 'electric-pair)
       (define-key LaTeX-mode-map "{" 'electric-pair)
+     ))
+
+(add-hook 'c-mode-hook
+     (lambda ()
+      (define-key c-mode-map "\"" 'electric-pair)
+      (define-key c-mode-map "\'" 'electric-pair)
+      (define-key c-mode-map "(" 'electric-pair)
+      (define-key c-mode-map "[" 'electric-pair)
+      (define-key c-mode-map "{" 'electric-pair)
      ))
 
 (fset 'insert-docstring
@@ -303,10 +310,28 @@
 
 (fset 'python-convert-lambda-to-def
    [?\C-a ?d ?e ?f ?  ?\C-s ?l ?a ?m ?b ?d ?a ?\C-m M-backspace backspace backspace backspace ?\C-d ?\( ?\C-d ?\C-s ?: ?\C-m backspace ?\) ?: return ?r ?e ?t ?u ?r ?n ?  ?\C-e])
+
 (require 'clojure-mode)
+(add-hook 'nrepl-interaction-mode-hook
+  'nrepl-turn-on-eldoc-mode)
+(setq nrepl-hide-special-buffers t)
+(defun my-nrepl-jack-in ()
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (when (string-prefix-p "*nrepl" (buffer-name buffer))
+      (kill-buffer buffer)))
+  (nrepl-jack-in nil))
 
 (require 'mediawiki)
 (require 'xpp)
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(autoload 'xpp-mode "xpp" "Enter XPP mode." t)
+(setq auto-mode-alist (cons '("\\.ode\\'" . xpp-mode) auto-mode-alist))
+(require 'markdown-mode)
 
 (add-to-list 'load-path "~/ESS/lisp")
 (load "~/ESS/lisp/ess-site")
@@ -325,4 +350,21 @@
        (:network-server . "talk.google.com")
        (:connection-type . ssl))))
 
+<<<<<<< HEAD
 (require 'org-beamer)
+=======
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(jabber-auto-reconnect t)
+ '(jabber-avatar-verbose nil)
+ '(jabber-vcard-avatars-retrieve nil)
+ '(jabber-chat-buffer-format "*-jabber-%n-*")
+ '(jabber-history-enabled t)
+ '(jabber-mode-line-mode t)
+ '(jabber-roster-buffer "*-jabber-*")
+ '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
+ '(jabber-show-offline-contacts nil))
+>>>>>>> 167646f01c40ddf8672660a3f04da7dfa315f1bc
