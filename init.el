@@ -28,9 +28,10 @@
  '(jabber-show-offline-contacts nil)
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
- '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "password" "Main Page"))))
+ '(mediawiki-site-alist (quote (("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page") ("erill-lab" "http://erilllab.biosci.umbc.edu/wiki/" "pon" "rts61844" "Main Page"))))
  '(mediawiki-site-default "erill-lab")
  '(python-python-command "python")
+ '(scroll-step 1)
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
 (setq Tex-PDF-mode t)
