@@ -147,8 +147,8 @@
 (load "~/emacs-config/dna-mode")
 (put 'downcase-region 'disabled nil)
 (load "~/emacs-config/zenburn")
-(require 'zenburn)
-(color-theme-zenburn)
+;(require 'zenburn)
+;(color-theme-zenburn)
 
 (load "~/emacs-config/hs-lint")
 (require 'hs-lint)
@@ -298,15 +298,15 @@
 ;;    [?\M-m ?\C-  ?\C-e ?\M-w ?\C-x ?o ?\C-y return ?\C-x ?o ?\C-n])
 ;; (global-set-key (kbd "C-c <return>") 'execute-line)
 
-(defun my-run-python (&optional new)
-  (interactive "P")
-  (if new
-   (run-python nil nil new)
-   (pop-to-buffer (process-buffer (python-proc)) t)))
+;; (defun my-run-python (&optional new)
+;;   (interactive "P")
+;;   (if new
+;;    (run-python nil nil new)
+;;    (pop-to-buffer (process-buffer (python-proc)) t)))
 
-(add-hook
- 'python-mode-hook
- '(lambda () (define-key python-mode-map (kbd "C-c C-z") 'my-run-python)))
+;; (add-hook
+;;  'python-mode-hook
+;;  '(lambda () (define-key python-mode-map (kbd "C-c C-z") 'my-run-python)))
 
 (fset 'python-convert-lambda-to-def
    [?\C-a ?d ?e ?f ?  ?\C-s ?l ?a ?m ?b ?d ?a ?\C-m M-backspace backspace backspace backspace ?\C-d ?\( ?\C-d ?\C-s ?: ?\C-m backspace ?\) ?: return ?r ?e ?t ?u ?r ?n ?  ?\C-e])
@@ -333,9 +333,9 @@
 (setq auto-mode-alist (cons '("\\.ode\\'" . xpp-mode) auto-mode-alist))
 (require 'markdown-mode)
 
-(add-to-list 'load-path "~/ESS/lisp")
-(load "~/ESS/lisp/ess-site")
-(setq inferior-julia-program-name "~/julia/julia")
+;; (add-to-list 'load-path "~/ESS/lisp")
+;; (load "~/ESS/lisp/ess-site")
+;; (setq inferior-julia-program-name "~/julia/julia")
 ;(require 'ipython)
 
 (require 'package)
@@ -350,9 +350,7 @@
        (:network-server . "talk.google.com")
        (:connection-type . ssl))))
 
-<<<<<<< HEAD
 (require 'org-beamer)
-=======
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -367,4 +365,18 @@
  '(jabber-roster-buffer "*-jabber-*")
  '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
  '(jabber-show-offline-contacts nil))
->>>>>>> 167646f01c40ddf8672660a3f04da7dfa315f1bc
+
+(setq LaTeX-command-style '(("" "%(PDF)%(latex) -file-line-error %S%(PDFout)"))) ; give informative pdflatex error messages
+
+(require 'pomodoro) 
+(pomodoro-add-to-mode-line)
+(fset 'chip-seq
+
+
+;; define chip-seq macro!
+(fset 'chip-seq (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "ChIP-Seq")))
+(fset 'chip-exo (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "ChIP-Exo")))
+
+
+(add-hook 'latex-mode-hook '(lambda () 
+     (define-key latex-mode-map "\C-c s" 'chip-seq)))
