@@ -373,9 +373,10 @@
 (fset 'chip-seq
 
 
-;; define chip-seq macro!
+;; define chip-seq macros!
 (fset 'chip-seq (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "ChIP-Seq")))
 (fset 'chip-exo (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "ChIP-Exo")))
+(fset 'plt (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "from matplotlib import pyplot as plt")))
 
 
 (add-hook 'latex-mode-hook '(lambda () 
