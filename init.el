@@ -28,7 +28,7 @@
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
  '(mediawiki-site-default "erill-lab")
- '(python-python-command "python")
+ ;;'(python-python-command "python")
  '(scroll-step 1)
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
@@ -36,15 +36,15 @@
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;;; bind RET to py-newline-and-indent
-(add-hook 'python-mode-hook '(lambda () 
-     (define-key python-mode-map "\C-m" 'newline-and-indent)))
+ (add-hook 'python-mode-hook '(lambda () 
+      (define-key python-mode-map "\C-m" 'newline-and-indent)))
 
-(if (boundp 'python-remove-cwd-from-path)
-    (setq python-remove-cwd-from-path nil)
-  (progn 
-    (defun python-reinstate-current-directory ()
-      (python-send-string "sys.path[0:0] = ['']"))
-    (add-hook 'inferior-python-mode-hook 'python-reinstate-current-directory)))
+;; (if (boundp 'python-remove-cwd-from-path)
+;;     (setq python-remove-cwd-from-path nil)
+  ;; (progn 
+  ;;   (defun python-reinstate-current-directory ()
+  ;;     (python-send-string "sys.path[0:0] = ['']"))
+  ;;   (add-hook 'inferior-python-mode-hook 'python-reinstate-current-directory)))
     
 (add-hook 'python-mode-hook
      (lambda ()
@@ -102,7 +102,10 @@
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([34 34 34 return return 16 tab] 0 "%d")) arg)))
 
 
-
+(electric-pair-mode)
+(add-hook 'LaTeX-mode-hook
+          '(lambda ()
+            (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
 
 (defun electric-pair ()
   "Insert character pair without sournding spaces"
@@ -166,24 +169,24 @@
    [?\C-  ?\C-s ?= ?\M-w ?\C-a return ?\C-p ?\C-y backspace backspace ?\C-a ?\C-k ?\C-y ?  ?| ?  ?t ?r ?a ?c ?e ?  ?\( ?\C-y ?\C-x ?\C-x ?\" ?\M-f ?\" ?\C-  ?\C-e ?\M-% ?  return ?+ ?+ ?  ?\" ?  ?\" ?\S-  ?+ ?\S-  ?+ backspace backspace ?+ ?  ?s ?h ?o ?w ?  return ?! ?\M-f ?\) ?  ?F ?a ?l ?s ?e ?  ?= ?  ?u ?n ?d ?e ?f ?i ?n ?e ?d])
 (define-key haskell-mode-map (kbd "C-c t") 'haskell-trace-function)
 
-(load-library "haskell-site-file")
-;; Literate Haskell [requires MMM] courtesy David Bremner
-(require 'mmm-auto)
-(require 'mmm-haskell)
-(setq mmm-global-mode 'maybe)
-(add-to-list 'mmm-mode-ext-classes-alist
-   '(latex-mode "\\.lhs$" haskell))
-(setenv "PATH" (concat (getenv "PATH") 
-		      ":~/.cabal/bin"))
-;; allow ghci to read expressions of greater than 253 chars in length!
-(add-hook 'haskell-mode-hook
-       '(lambda ()
-          (setq process-connection-type nil))) 
-(add-to-list 'auto-mode-alist '("\\.lhs\\'" . latex-mode))
-(eval-after-load "tex"
-'(progn
-    (add-to-list 'LaTeX-command-style '("lhs" "lhslatex"))
-    (add-to-list 'TeX-file-extensions "lhs")))
+;(load-library "haskell-site-file")
+;;; Literate Haskell [requires MMM] courtesy David Bremner
+;(require 'mmm-auto)
+;(require 'mmm-haskell)
+;(setq mmm-global-mode 'maybe)
+;(add-to-list 'mmm-mode-ext-classes-alist
+;   '(latex-mode "\\.lhs$" haskell))
+;(setenv "PATH" (concat (getenv "PATH") 
+;		      ":~/.cabal/bin"))
+;;; allow ghci to read expressions of greater than 253 chars in length!
+;(add-hook 'haskell-mode-hook
+;       '(lambda ()
+;          (setq process-connection-type nil))) 
+;(add-to-list 'auto-mode-alist '("\\.lhs\\'" . latex-mode))
+;(eval-after-load "tex"
+;'(progn
+;    (add-to-list 'LaTeX-command-style '("lhs" "lhslatex"))
+;    (add-to-list 'TeX-file-extensions "lhs")))
 
 
 (require 'term)
@@ -335,13 +338,40 @@
 
 ;; (add-to-list 'load-path "~/ESS/lisp")
 ;; (load "~/ESS/lisp/ess-site")
-;; (setq inferior-julia-program-name "~/julia/julia")
-;(require 'ipython)
+(setq inferior-julia-program-name "/usr/bin/julia-basic")
+
+;;;python-mode.el stuff
+;;(require 'python-mode)
+;;(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;;(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+;;; end python-mode.el stuff
+
+;;; ipython stuff
+;;(require 'ipython)
+
+(setq
+ python-shell-interpreter "ipython"
+ python-shell-interpreter-args ""
+ python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+ python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+ python-shell-completion-setup-code
+   "from IPython.core.completerlib import module_completion"
+ python-shell-completion-module-string-code
+   "';'.join(module_completion('''%s'''))\n"
+ python-shell-completion-string-code
+   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+;;; end ipython stuff
+(require 'ein)
 
 (require 'package)
 (add-to-list 'package-archives 
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
+
+(add-to-list 'package-archives 
+	     '("melpa" . 
+	       "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 ;;; gchat in emacs: solving a problem you never knew you had!
@@ -370,7 +400,6 @@
 
 (require 'pomodoro) 
 (pomodoro-add-to-mode-line)
-(fset 'chip-seq
 
 
 ;; define chip-seq macros!
