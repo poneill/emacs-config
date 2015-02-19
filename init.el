@@ -103,9 +103,11 @@
 
 
 (electric-pair-mode)
-(add-hook 'LaTeX-mode-hook
-          '(lambda ()
-            (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
+(require 'cdlatex)
+(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
+;; (add-hook 'LaTeX-mode-hook
+;;           '(lambda ()
+;;             (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
 
 (defun electric-pair ()
   "Insert character pair without sournding spaces"
@@ -225,6 +227,7 @@
 (setq auto-mode-alist       
       (cons '("\\.frink\\'" . frink-mode) auto-mode-alist))
 
+(setq org-log-done t)
 ; define latex delimiters for org-mode
 (fset 'org-latex-left-paren
       (lambda (&optional arg) 
