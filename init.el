@@ -9,26 +9,26 @@
 (ido-mode t)
 (require 'inf-haskell)
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(case-fold-search t)
  '(haskell-program-name "ghci")
  '(jabber-auto-reconnect t)
  '(jabber-avatar-verbose nil)
  '(jabber-chat-buffer-format "*-jabber-%n-*")
  '(jabber-history-enabled t)
  '(jabber-mode-line-compact nil)
- '(jabber-mode-line-mode nil)
+ '(jabber-mode-line-mode t)
  '(jabber-roster-buffer "*-jabber-*")
  '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
  '(jabber-show-offline-contacts nil)
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
  '(mediawiki-site-default "erill-lab")
- ;;'(python-python-command "python")
  '(scroll-step 1)
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
@@ -227,6 +227,9 @@
 (setq auto-mode-alist       
       (cons '("\\.frink\\'" . frink-mode) auto-mode-alist))
 
+(setq org-todo-keywords
+  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
 (setq org-log-done t)
 ; define latex delimiters for org-mode
 (fset 'org-latex-left-paren
@@ -262,10 +265,10 @@
 (make-directory "~/.emacs.d/autosaves/" t)
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(mmm-default-submode-face ((t (:background "gray25")))))
 (require 'weblogger)
 (require 'xml-rpc)
@@ -341,7 +344,7 @@
 
 ;; (add-to-list 'load-path "~/ESS/lisp")
 ;; (load "~/ESS/lisp/ess-site")
-(setq inferior-julia-program-name "/usr/bin/julia-basic")
+(setq inferior-julia-program-name "/usr/bin/julia")
 
 ;;;python-mode.el stuff
 ;;(require 'python-mode)
@@ -384,20 +387,7 @@
        (:connection-type . ssl))))
 
 (require 'org-beamer)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(jabber-auto-reconnect t)
- '(jabber-avatar-verbose nil)
- '(jabber-vcard-avatars-retrieve nil)
- '(jabber-chat-buffer-format "*-jabber-%n-*")
- '(jabber-history-enabled t)
- '(jabber-mode-line-mode t)
- '(jabber-roster-buffer "*-jabber-*")
- '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
- '(jabber-show-offline-contacts nil))
+
 
 (setq LaTeX-command-style '(("" "%(PDF)%(latex) -file-line-error %S%(PDFout)"))) ; give informative pdflatex error messages
 
@@ -413,3 +403,67 @@
 
 (add-hook 'latex-mode-hook '(lambda () 
      (define-key latex-mode-map "\C-c s" 'chip-seq)))
+
+
+
+(fset 'switch-buffer
+      [?\C-x ?b return])
+
+(global-set-key (kbd "C-<tab>") 'switch-buffer)
+
+(defun quiet-time ()
+  (interactive)
+  (setq erc-format-query-as-channel-p t
+        erc-track-priority-faces-only 'all ;all
+        erc-track-faces-priority-list '(erc-error-face
+                                        erc-current-nick-face
+                                        erc-keyword-face
+                                        erc-nick-msg-face
+                                        erc-direct-msg-face
+                                        erc-dangerous-host-face
+                                        erc-notice-face
+                                        erc-prompt-face)))
+
+(defun loud-time() 
+  (interactive)
+  (setq erc-format-query-as-channel-p t
+        erc-track-priority-faces-only 'all ;all
+        erc-track-faces-priority-list '(erc-error-face
+					(erc-nick-default-face erc-current-nick-face)
+					erc-current-nick-face erc-keyword-face
+					(erc-nick-default-face erc-pal-face)
+					erc-pal-face erc-nick-msg-face erc-direct-msg-face
+					(erc-button erc-default-face)
+					(erc-nick-default-face erc-dangerous-host-face)
+					erc-dangerous-host-face erc-nick-default-face
+					(erc-nick-default-face erc-default-face)
+					erc-default-face erc-action-face
+					(erc-nick-default-face erc-fool-face)
+					erc-fool-face erc-notice-face erc-input-face erc-prompt-face)))
+  
+
+
+
+;; erc-track-faces-priority-list's value is shown below.
+
+;; Documentation:
+;; A list of faces used to highlight active buffer names in the mode line.
+;; If a message contains one of the faces in this list, the buffer name will
+;; be highlighted using that face.  The first matching face is used.
+
+;; You can customize this variable.
+
+;; Value: (erc-error-face
+;;  (erc-nick-default-face erc-current-nick-face)
+;;  erc-current-nick-face erc-keyword-face
+;;  (erc-nick-default-face erc-pal-face)
+;;  erc-pal-face erc-nick-msg-face erc-direct-msg-face
+;;  (erc-button erc-default-face)
+;;  (erc-nick-default-face erc-dangerous-host-face)
+;;  erc-dangerous-host-face erc-nick-default-face
+;;  (erc-nick-default-face erc-default-face)
+;;  erc-default-face erc-action-face
+;;  (erc-nick-default-face erc-fool-face)
+;;  erc-fool-face erc-notice-face erc-input-face erc-prompt-face)
+
+;; [back]
