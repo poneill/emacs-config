@@ -29,6 +29,44 @@
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
  '(mediawiki-site-default "erill-lab")
+ '(org-src-fontify-natively t)
+ '(org-structure-template-alist (quote (("s" "#+BEGIN_SRC ?
+
+#+END_SRC" "<src lang=\"?\">
+
+</src>") ("p" "#+BEGIN_SRC python
+
+#+END_SRC") ("e" "#+BEGIN_EXAMPLE
+?
+#+END_EXAMPLE" "<example>
+?
+</example>") ("q" "#+BEGIN_QUOTE
+?
+#+END_QUOTE" "<quote>
+?
+</quote>") ("v" "#+BEGIN_VERSE
+?
+#+END_VERSE" "<verse>
+?
+</verse>") ("V" "#+BEGIN_VERBATIM
+?
+#+END_VERBATIM" "<verbatim>
+?
+</verbatim>") ("c" "#+BEGIN_CENTER
+?
+#+END_CENTER" "<center>
+?
+</center>") ("l" "#+BEGIN_LaTeX
+?
+#+END_LaTeX" "<literal style=\"latex\">
+?
+</literal>") ("L" "#+LaTeX: " "<literal style=\"latex\">?</literal>") ("h" "#+BEGIN_HTML
+?
+#+END_HTML" "<literal style=\"html\">
+?
+</literal>") ("H" "#+HTML: " "<literal style=\"html\">?</literal>") ("a" "#+BEGIN_ASCII
+?
+#+END_ASCII") ("A" "#+ASCII: ") ("i" "#+INDEX: ?" "#+INDEX: ?") ("I" "#+INCLUDE: %file ?" "<include file=%file markup=\"?\">"))))
  '(scroll-step 1)
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
@@ -333,9 +371,12 @@
 
 (require 'mediawiki)
 (require 'xpp)
-(require 'package)
+(require 'package) ;automatic in emacs >=24
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives 
+	     '("melpa" . 
+	       "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (autoload 'xpp-mode "xpp" "Enter XPP mode." t)
@@ -368,17 +409,8 @@
  python-shell-completion-string-code
    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 ;;; end ipython stuff
-(require 'ein)
+;(require 'ein)
 
-(require 'package)
-(add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
-
-(add-to-list 'package-archives 
-	     '("melpa" . 
-	       "http://melpa.milkbox.net/packages/"))
-(package-initialize)
 
 ;;; gchat in emacs: solving a problem you never knew you had!
 (setq jabber-account-list
@@ -467,3 +499,31 @@
 ;;  erc-fool-face erc-notice-face erc-input-face erc-prompt-face)
 
 ;; [back]
+
+;Pnw-mode for Pweave reST documents
+(defun Pnw-mode ()
+       (require 'noweb-font-lock-mode)
+       (noweb-mode)
+       (setq noweb-default-code-mode 'python-mode)
+       (setq noweb-doc-mode 'rst-mode))
+
+(setq auto-mode-alist (append (list (cons "\\.Pnw$" 'Pnw-mode))
+                   auto-mode-alist))
+
+;Plw-mode for Pweave Latex documents
+(defun Plw-mode ()
+       (require 'noweb-font-lock-mode)
+       (noweb-mode)
+       (setq noweb-default-code-mode 'python-mode)
+       (setq noweb-code-mode 'python-mode); added this to see if it helps
+       (setq noweb-doc-mode 'latex-mode))
+
+(setq auto-mode-alist (append (list (cons "\\.Plw$" 'Plw-mode))
+                   auto-mode-alist))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(require 'ob-ipython)
+
+(require 'repro-research-settings)
