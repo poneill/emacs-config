@@ -7,66 +7,29 @@
 (tool-bar-mode -1) 
 (setq x-select-enable-clipboard t); why was this ever, ever disabled?
 (ido-mode t)
-(require 'inf-haskell)
+(setq x-super-keysym 'meta)
+;(require 'inf-haskell)
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(case-fold-search t)
  '(haskell-program-name "ghci")
  '(jabber-auto-reconnect t)
  '(jabber-avatar-verbose nil)
  '(jabber-chat-buffer-format "*-jabber-%n-*")
  '(jabber-history-enabled t)
  '(jabber-mode-line-compact nil)
- '(jabber-mode-line-mode t)
+ '(jabber-mode-line-mode nil)
  '(jabber-roster-buffer "*-jabber-*")
  '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
  '(jabber-show-offline-contacts nil)
  '(jabber-vcard-avatars-retrieve nil)
  '(mediawiki-debug t)
  '(mediawiki-site-default "erill-lab")
- '(org-src-fontify-natively t)
- '(org-structure-template-alist (quote (("s" "#+BEGIN_SRC ?
-
-#+END_SRC" "<src lang=\"?\">
-
-</src>") ("p" "#+BEGIN_SRC python
-
-#+END_SRC") ("e" "#+BEGIN_EXAMPLE
-?
-#+END_EXAMPLE" "<example>
-?
-</example>") ("q" "#+BEGIN_QUOTE
-?
-#+END_QUOTE" "<quote>
-?
-</quote>") ("v" "#+BEGIN_VERSE
-?
-#+END_VERSE" "<verse>
-?
-</verse>") ("V" "#+BEGIN_VERBATIM
-?
-#+END_VERBATIM" "<verbatim>
-?
-</verbatim>") ("c" "#+BEGIN_CENTER
-?
-#+END_CENTER" "<center>
-?
-</center>") ("l" "#+BEGIN_LaTeX
-?
-#+END_LaTeX" "<literal style=\"latex\">
-?
-</literal>") ("L" "#+LaTeX: " "<literal style=\"latex\">?</literal>") ("h" "#+BEGIN_HTML
-?
-#+END_HTML" "<literal style=\"html\">
-?
-</literal>") ("H" "#+HTML: " "<literal style=\"html\">?</literal>") ("a" "#+BEGIN_ASCII
-?
-#+END_ASCII") ("A" "#+ASCII: ") ("i" "#+INDEX: ?" "#+INDEX: ?") ("I" "#+INCLUDE: %file ?" "<include file=%file markup=\"?\">"))))
+ ;;'(python-python-command "python")
  '(scroll-step 1)
  '(weblogger-config-alist (quote (("erill-lab" "http://compbio.umbc.edu/xmlrpc.php" "pon2" "" "1") ("default" "http://bloginavat.wordpress.com/xmlrpc.php" "synapseandsyntax" "" "4063925")))))
 
@@ -190,8 +153,8 @@
 (load "~/emacs-config/dna-mode")
 (put 'downcase-region 'disabled nil)
 (load "~/emacs-config/zenburn")
-;(require 'zenburn)
-;(color-theme-zenburn)
+(require 'zenburn)
+(color-theme-zenburn)
 
 (load "~/emacs-config/hs-lint")
 (require 'hs-lint)
@@ -207,7 +170,7 @@
 ;; All function arguments must be specified.
 (fset 'haskell-trace-function
    [?\C-  ?\C-s ?= ?\M-w ?\C-a return ?\C-p ?\C-y backspace backspace ?\C-a ?\C-k ?\C-y ?  ?| ?  ?t ?r ?a ?c ?e ?  ?\( ?\C-y ?\C-x ?\C-x ?\" ?\M-f ?\" ?\C-  ?\C-e ?\M-% ?  return ?+ ?+ ?  ?\" ?  ?\" ?\S-  ?+ ?\S-  ?+ backspace backspace ?+ ?  ?s ?h ?o ?w ?  return ?! ?\M-f ?\) ?  ?F ?a ?l ?s ?e ?  ?= ?  ?u ?n ?d ?e ?f ?i ?n ?e ?d])
-(define-key haskell-mode-map (kbd "C-c t") 'haskell-trace-function)
+;(define-key haskell-mode-map (kbd "C-c t") 'haskell-trace-function)
 
 ;(load-library "haskell-site-file")
 ;;; Literate Haskell [requires MMM] courtesy David Bremner
@@ -265,9 +228,6 @@
 (setq auto-mode-alist       
       (cons '("\\.frink\\'" . frink-mode) auto-mode-alist))
 
-(setq org-todo-keywords
-  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
-
 (setq org-log-done t)
 ; define latex delimiters for org-mode
 (fset 'org-latex-left-paren
@@ -303,10 +263,10 @@
 (make-directory "~/.emacs.d/autosaves/" t)
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(mmm-default-submode-face ((t (:background "gray25")))))
 (require 'weblogger)
 (require 'xml-rpc)
@@ -371,12 +331,9 @@
 
 (require 'mediawiki)
 (require 'xpp)
-(require 'package) ;automatic in emacs >=24
+(require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives 
-	     '("melpa" . 
-	       "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (autoload 'xpp-mode "xpp" "Enter XPP mode." t)
@@ -385,6 +342,8 @@
 
 ;; (add-to-list 'load-path "~/ESS/lisp")
 ;; (load "~/ESS/lisp/ess-site")
+;(setq inferior-julia-program-name "/usr/bin/julia-basic")
+;; for fedora laptop
 (setq inferior-julia-program-name "/usr/bin/julia")
 
 ;;;python-mode.el stuff
@@ -411,6 +370,15 @@
 ;;; end ipython stuff
 ;(require 'ein)
 
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+
+(add-to-list 'package-archives 
+	     '("melpa" . 
+	       "http://melpa.milkbox.net/packages/"))
+(package-initialize)
 
 ;;; gchat in emacs: solving a problem you never knew you had!
 (setq jabber-account-list
@@ -418,13 +386,26 @@
        (:network-server . "talk.google.com")
        (:connection-type . ssl))))
 
-(require 'org-beamer)
-
+;(require 'org-beamer)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(jabber-auto-reconnect t)
+ '(jabber-avatar-verbose nil)
+ '(jabber-vcard-avatars-retrieve nil)
+ '(jabber-chat-buffer-format "*-jabber-%n-*")
+ '(jabber-history-enabled t)
+ '(jabber-mode-line-mode t)
+ '(jabber-roster-buffer "*-jabber-*")
+ '(jabber-roster-line-format " %c %-25n %u %-8s (%r)")
+ '(jabber-show-offline-contacts nil))
 
 (setq LaTeX-command-style '(("" "%(PDF)%(latex) -file-line-error %S%(PDFout)"))) ; give informative pdflatex error messages
 
-(require 'pomodoro) 
-(pomodoro-add-to-mode-line)
+;; (require 'pomodoro) 
+;; (pomodoro-add-to-mode-line)
 
 
 ;; define chip-seq macros!
@@ -433,97 +414,3 @@
 (fset 'plt (lambda (&optional arg) "Keyboard macro." (interactive "p") (insert "from matplotlib import pyplot as plt")))
 
 
-(add-hook 'latex-mode-hook '(lambda () 
-     (define-key latex-mode-map "\C-c s" 'chip-seq)))
-
-
-
-(fset 'switch-buffer
-      [?\C-x ?b return])
-
-(global-set-key (kbd "C-<tab>") 'switch-buffer)
-
-(defun quiet-time ()
-  (interactive)
-  (setq erc-format-query-as-channel-p t
-        erc-track-priority-faces-only 'all ;all
-        erc-track-faces-priority-list '(erc-error-face
-                                        erc-current-nick-face
-                                        erc-keyword-face
-                                        erc-nick-msg-face
-                                        erc-direct-msg-face
-                                        erc-dangerous-host-face
-                                        erc-notice-face
-                                        erc-prompt-face)))
-
-(defun loud-time() 
-  (interactive)
-  (setq erc-format-query-as-channel-p t
-        erc-track-priority-faces-only 'all ;all
-        erc-track-faces-priority-list '(erc-error-face
-					(erc-nick-default-face erc-current-nick-face)
-					erc-current-nick-face erc-keyword-face
-					(erc-nick-default-face erc-pal-face)
-					erc-pal-face erc-nick-msg-face erc-direct-msg-face
-					(erc-button erc-default-face)
-					(erc-nick-default-face erc-dangerous-host-face)
-					erc-dangerous-host-face erc-nick-default-face
-					(erc-nick-default-face erc-default-face)
-					erc-default-face erc-action-face
-					(erc-nick-default-face erc-fool-face)
-					erc-fool-face erc-notice-face erc-input-face erc-prompt-face)))
-  
-
-
-
-;; erc-track-faces-priority-list's value is shown below.
-
-;; Documentation:
-;; A list of faces used to highlight active buffer names in the mode line.
-;; If a message contains one of the faces in this list, the buffer name will
-;; be highlighted using that face.  The first matching face is used.
-
-;; You can customize this variable.
-
-;; Value: (erc-error-face
-;;  (erc-nick-default-face erc-current-nick-face)
-;;  erc-current-nick-face erc-keyword-face
-;;  (erc-nick-default-face erc-pal-face)
-;;  erc-pal-face erc-nick-msg-face erc-direct-msg-face
-;;  (erc-button erc-default-face)
-;;  (erc-nick-default-face erc-dangerous-host-face)
-;;  erc-dangerous-host-face erc-nick-default-face
-;;  (erc-nick-default-face erc-default-face)
-;;  erc-default-face erc-action-face
-;;  (erc-nick-default-face erc-fool-face)
-;;  erc-fool-face erc-notice-face erc-input-face erc-prompt-face)
-
-;; [back]
-
-;Pnw-mode for Pweave reST documents
-(defun Pnw-mode ()
-       (require 'noweb-font-lock-mode)
-       (noweb-mode)
-       (setq noweb-default-code-mode 'python-mode)
-       (setq noweb-doc-mode 'rst-mode))
-
-(setq auto-mode-alist (append (list (cons "\\.Pnw$" 'Pnw-mode))
-                   auto-mode-alist))
-
-;Plw-mode for Pweave Latex documents
-(defun Plw-mode ()
-       (require 'noweb-font-lock-mode)
-       (noweb-mode)
-       (setq noweb-default-code-mode 'python-mode)
-       (setq noweb-code-mode 'python-mode); added this to see if it helps
-       (setq noweb-doc-mode 'latex-mode))
-
-(setq auto-mode-alist (append (list (cons "\\.Plw$" 'Plw-mode))
-                   auto-mode-alist))
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
-(require 'ob-ipython)
-
-(require 'repro-research-settings)
